@@ -109,11 +109,27 @@ app.use((req, res, next) => {
 });
 
 // ============================================
-// Health Check
+// Root Health Check
 // ============================================
+
+app.get('/', (_req, res) => {
+    res.json({
+        status: 'ARK NEET Backend Running',
+        service: 'Payments + Email + Zapier API',
+        environment: process.env.NODE_ENV || 'production',
+    });
+});
 
 app.get('/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/test', (_req, res) => {
+    res.json({
+        message: 'API working correctly',
+        timestamp: new Date().toISOString(),
+        server: 'ARK NEET Launchpad Backend',
+    });
 });
 
 // ============================================
@@ -719,10 +735,12 @@ app.post('/webhook/razorpay', express.raw({ type: 'application/json' }), async (
 // ============================================
 
 app.listen(PORT, () => {
-    console.log(`🚀 ARK NEET Launchpad server running on port ${PORT}`);
-    console.log(`   Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`   Razorpay Key: ${process.env.RAZORPAY_KEY_ID?.substring(0, 12)}...`);
+    console.log(`🚀 ARK NEET Launchpad server running`);
+    console.log(`   Port: ${PORT}`);
+    console.log(`   Environment: ${process.env.NODE_ENV || 'production'}`);
     console.log(`   Frontend URL: ${FRONTEND_URL}`);
+    console.log(`   Razorpay Key: ${process.env.RAZORPAY_KEY_ID ? 'Configured ✅' : 'NOT SET ⚠️'}`);
+    console.log(`   Brevo Email: ${process.env.BREVO_API_KEY ? 'Configured ✅' : 'NOT SET ⚠️'}`);
     console.log(`   Zapier Webhook: ${process.env.ZAPIER_WEBHOOK_URL ? 'Configured ✅' : 'NOT SET ⚠️'}`);
     console.log(`   Database: NONE (all data → Zapier → Google Sheets)`);
 });
