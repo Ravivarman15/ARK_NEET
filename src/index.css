@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ARK Learning Arena Design System */
+
+@layer base {
+  :root {
+    /* ARK Brand Colors */
+    --ark-blue: 213 79% 19%;
+    --ark-white: 0 0% 100%;
+    --ark-yellow: 45 100% 51%;
+    --ark-pink: 340 100% 65%;
+
+    /* Semantic tokens */
+    --background: 0 0% 100%;
+    --foreground: 213 79% 19%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 79% 19%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 79% 19%;
+
+    --primary: 213 79% 19%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 213 79% 19%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 213 30% 40%;
+
+    --accent: 45 100% 51%;
+    --accent-foreground: 213 79% 19%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 20% 85%;
+    --input: 213 20% 85%;
+    --ring: 45 100% 51%;
+
+    --radius: 0.5rem;
+
+    /* Custom gradients */
+    --gradient-blue: linear-gradient(135deg, hsl(213 79% 19%) 0%, hsl(213 79% 28%) 100%);
+    --gradient-yellow: linear-gradient(135deg, hsl(45 100% 51%) 0%, hsl(40 100% 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(213 79% 16%) 0%, hsl(213 79% 22%) 100%);
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px -4px hsl(213 79% 19% / 0.1);
+    --shadow-yellow: 0 4px 24px -4px hsl(45 100% 51% / 0.4);
+    --shadow-elevated: 0 8px 32px -8px hsl(213 79% 19% / 0.15);
+  }
+
+  .dark {
+    --background: 213 79% 10%;
+    --foreground: 0 0% 98%;
+    --card: 213 79% 14%;
+    --card-foreground: 0 0% 98%;
+    --popover: 213 79% 14%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 213 79% 19%;
+    --secondary: 213 50% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 213 50% 20%;
+    --muted-foreground: 210 20% 70%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 213 79% 19%;
+    --border: 213 50% 25%;
+    --input: 213 50% 25%;
+    --ring: 45 100% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* ARK Button Variants */
+  .btn-primary {
+    @apply bg-ark-yellow text-ark-blue font-semibold px-6 py-3 rounded-lg 
+           transition-all duration-300 hover:shadow-yellow hover:scale-[1.02]
+           active:scale-[0.98] cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-ark-white text-ark-white font-semibold px-6 py-3 rounded-lg
+           transition-all duration-300 hover:bg-ark-white hover:text-ark-blue
+           active:scale-[0.98] cursor-pointer;
+  }
+
+  .btn-outline-blue {
+    @apply border-2 border-ark-blue text-ark-blue font-semibold px-6 py-3 rounded-lg
+           transition-all duration-300 hover:bg-ark-blue hover:text-ark-white
+           active:scale-[0.98] cursor-pointer;
+  }
+
+  /* Card styles */
+  .card-elevated {
+    @apply bg-card rounded-xl p-6 shadow-card transition-all duration-300
+           hover:shadow-elevated hover:-translate-y-1;
+  }
+
+  .card-subject {
+    @apply bg-ark-white rounded-xl p-6 border border-border
+           transition-all duration-300 hover:border-ark-yellow hover:shadow-yellow;
+  }
+
+  /* Section containers */
+  .section-blue {
+    @apply bg-ark-blue text-ark-white;
+  }
+
+  .section-light {
+    @apply bg-secondary;
+  }
+
+  /* Badge styles */
+  .badge-yellow {
+    @apply inline-flex items-center gap-2 bg-ark-yellow text-ark-blue 
+           px-4 py-2 rounded-full font-semibold text-sm;
+  }
+
+  .badge-outline {
+    @apply inline-flex items-center gap-2 border-2 border-ark-blue text-ark-blue
+           px-4 py-2 rounded-full font-medium text-sm;
+  }
+
+  /* Free book highlight */
+  .free-book-highlight {
+    @apply relative inline-block;
+  }
+
+  .free-book-highlight::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1 bg-ark-pink rounded-full;
+  }
+
+  /* Pink accent underline */
+  .accent-underline {
+    @apply relative inline-block;
+  }
+
+  .accent-underline::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-full h-0.5 bg-ark-pink;
+  }
+
+  /* Sticky CTA for mobile */
+  .sticky-cta-mobile {
+    @apply fixed bottom-0 left-0 right-0 p-4 bg-ark-white shadow-elevated z-50 
+           md:hidden border-t border-border;
+  }
+}
+  /* Premium Booklet Card Enhancements (targets only #booklets section) */
+  #booklets .group, #booklets .booklet-card {
+    position: relative !important;
+    transition: transform 320ms cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 320ms ease, filter 320ms ease !important;
+    will-change: transform, box-shadow !important;
+    box-shadow: 0 4px 20px -4px hsl(213 79% 19% / 0.1) !important;
+    backface-visibility: hidden !important;
+  }
+
+  /* soft outer glow / gradient border on hover, and gentle lift */
+  #booklets .group:hover, #booklets .booklet-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 8px 32px -8px hsl(213 79% 19% / 0.15), 0 10px 40px -12px rgba(255, 200, 60, 0.14) !important;
+  }
+
+  /* subtle yellow accent behind icon and highlighted on hover */
+  #booklets .group .w-12.h-12, #booklets .booklet-card .w-12.h-12 {
+    background-image: linear-gradient(180deg, rgba(255, 245, 200, 0.06), rgba(255, 235, 150, 0.03)) !important;
+    transition: background-color 320ms ease, box-shadow 320ms ease, transform 320ms ease !important;
+    box-shadow: inset 0 4px 14px -6px rgba(34, 34, 34, 0.08) !important;
+  }
+
+  #booklets .group:hover .w-12.h-12, #booklets .booklet-card:hover .w-12.h-12 {
+    background-image: radial-gradient(60% 60% at 30% 25%, rgba(255, 244, 170, 0.14), rgba(255, 235, 150, 0.06)), linear-gradient(180deg, rgba(255, 245, 200, 0.08), rgba(255, 235, 150, 0.03)) !important;
+    box-shadow: 0 6px 22px -8px rgba(255, 200, 60, 0.12) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+  }
+
+  /* Make the icons feel highlighted (subtle tint + soft inner glow) */
+  #booklets .group .w-12.h-12 svg, #booklets .booklet-card .w-12.h-12 svg {
+    filter: drop-shadow(0 2px 6px rgba(34, 34, 34, 0.08)) !important;
+    transition: filter 320ms ease, color 320ms ease !important;
+  }
+
+  #booklets .group:hover .w-12.h-12 svg, #booklets .booklet-card:hover .w-12.h-12 svg {
+    filter: drop-shadow(0 6px 18px rgba(255, 200, 60, 0.12)) !important;
+  }
+
+  /* Embossed / glow effect for the small ARK yellow labels (keeps text and spacing) */
+  #booklets .text-ark-yellow.font-semibold, #booklets .booklet-card .text-ark-yellow.font-semibold {
+    position: relative !important;
+    display: inline-block !important;
+    color: hsl(45 100% 51% / 1) !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 6px 18px rgba(255, 200, 60, 0.06) !important;
+    transition: text-shadow 320ms ease, color 320ms ease !important;
+  }
+
+  /* stronger embossed glow on card hover */
+  #booklets .group:hover .text-ark-yellow.font-semibold, #booklets .booklet-card:hover .text-ark-yellow.font-semibold {
+    text-shadow: 0 2px 6px rgba(255, 245, 200, 0.85), 0 12px 36px rgba(255, 200, 60, 0.18) !important;
+  }
+
+  /* Keep the outcome box subtle but elevated */
+  #booklets .group .bg-ark-yellow\/10, #booklets .booklet-card .bg-ark-yellow\/10 {
+    border-radius: 12px !important;
+    box-shadow: 0 6px 18px -8px rgba(34, 34, 34, 0.06) !important;
+  }
+
+  /* Ensure buttons and CTAs remain crisp during transform */
+  #booklets .group .btn-primary, #booklets .group button, #booklets .booklet-card .btn-primary, #booklets .booklet-card button {
+    transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease !important;
+    will-change: transform !important;
+  }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-blue {
+    background: var(--gradient-blue);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .shadow-yellow {
+    box-shadow: var(--shadow-yellow);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+}
