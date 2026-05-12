@@ -93,9 +93,22 @@ const razorpay = new Razorpay({
 
 const app = express();
 
-// CORS — allow frontend origin
+// CORS — allow frontend origins (production + local dev)
+const ALLOWED_ORIGINS = [
+    FRONTEND_URL,
+    'https://ark-neet.vercel.app',
+    'http://localhost:8080',
+    'http://localhost:5173',
+];
+
 app.use(cors({
-    origin: [FRONTEND_URL, 'http://localhost:8080', 'http://localhost:5173'],
+    origin: (origin, callback) => {
+        // Allow same-origin / server-to-server requests with no Origin header
+        if (!origin) return callback(null, true);
+        if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+        console.warn(`[CORS_BLOCKED] origin=${origin}`);
+        return callback(new Error('Not allowed by CORS'));
+    },
     methods: ['GET', 'POST'],
     credentials: true,
 }));
